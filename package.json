@@ -1,0 +1,23 @@
+{
+  "name": "syllabus-generator",
+  "version": "1.0.0",
+  "description": "Syllabus Generator for the College of Computer Studies (CCS) of FEU Institute of Technology.",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arnesfield/syllabus-generator.git"
+  },
+  "author": "Jefferson Rylee <rylee.jeff385@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arnesfield/syllabus-generator/issues"
+  },
+  "homepage": "https://github.com/Arnesfield/syllabus-generator#readme"
+}
