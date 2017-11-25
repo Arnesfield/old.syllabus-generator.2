@@ -3,8 +3,18 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
+
+// css
+import './assets/css/common.css'
+
+const port = process.env.PORT || 3000
 
 Vue.config.productionTip = false
+Vue.prototype.$http = axios.create({
+  baseURL: process.env.NODE_ENV !== 'production' ?
+    'http://localhost:8080' : 'http://localhost:' + port
+})
 
 /* eslint-disable no-new */
 new Vue({
