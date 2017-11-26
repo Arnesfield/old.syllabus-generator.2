@@ -6,6 +6,21 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+
+  sockets: {
+    connect() {
+      // check if login
+      this.$socket.emit('isLoggedIn')
+    },
+
+    disconnect() {
+      
+    },
+
+    login(data) {
+      console.log('login: ' + data)
+    }
+  }
 }
 </script>

@@ -4,8 +4,19 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const app = express()
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
 
 const saltRounds = 10
+
+// socket
+io.on('connection', (socket) => {
+  console.log('Socket connection.')
+  socket.on('isLoggedIn', () => {
+    // check if is logged in
+    io.emit('login', true)
+  })
+})
 
 // db
 mongoose.connect('mongodb://localhost/forge', { useMongoClient: true })
@@ -36,16 +47,20 @@ app.post('/login', (req, response) => {
   const password = req.body.password
 
   // fetch hashed password from db instead
-  User.find({ username: username }, (err, res) => {
-    if (err || !res.length) {
+  User.findOne({ username: username }, (err, user) => {
+    if (err || !user) {
       console.log(err)
       response.send({ success: false })
       return
     }
 
-    const hash = res[0].password
+    const hash = user.password
     bcrypt.compare(password, hash, (err, result) => {
       response.send({ success: result })
+
+      if (result === true) {
+        // save user session here
+      }
     })
   })
 })
@@ -55,6 +70,6 @@ app.all('*', (req, res) => {
   res.redirect('/')
 })
 
-app.listen(app.get('port'), () => {
+http.listen(app.get('port'), () => {
   console.log('Listening on port %d.', app.get('port'))
 })
